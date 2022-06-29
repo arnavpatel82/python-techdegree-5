@@ -10,17 +10,21 @@ def index():
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    projects = Project.query.all()
+    return render_template('about.html', projects=projects)
 
 
 @app.route('/project/<id>')
 def project(id):
+    projects = Project.query.all()
     project = Project.query.get(id)
-    return render_template('detail.html', project=project)
+    skill_list = project.skills.split(', ')
+    return render_template('detail.html', project=project, projects=projects, skill_list=skill_list)
 
 
 @app.route('/add-project', methods=['GET', 'POST'])
 def add_project():
+    projects = Project.query.all()
     if request.form:
         form_date = request.form['date']
         add_date = datetime.strptime(form_date, '%Y-%m')
@@ -28,8 +32,7 @@ def add_project():
         db.session.add(new_project)
         db.session.commit()
         return redirect(url_for('index'))
-
-    return render_template('projectform.html')
+    return render_template('projectform.html', projects=projects)
 
 
 if __name__ == '__main__':
