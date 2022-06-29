@@ -4,8 +4,8 @@ from models import db, Project, app, datetime
 
 @app.route('/')
 def index():
-    # projects = Project.query.all()
-    return render_template('index.html')
+    projects = Project.query.all()
+    return render_template('index.html', projects=projects)
 
 
 @app.route('/about')
@@ -13,9 +13,10 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/detail')
-def project():
-    return render_template('detail.html')
+@app.route('/project/<id>')
+def project(id):
+    project = Project.query.get(id)
+    return render_template('detail.html', project=project)
 
 
 @app.route('/add-project', methods=['GET', 'POST'])
@@ -30,11 +31,6 @@ def add_project():
 
     return render_template('projectform.html')
 
-
-# @app.route('/projects/<id>')
-# def project(id):
-#     project = Project.query.get(id)
-#     return render_template('detail.html', project=project)
 
 if __name__ == '__main__':
     db.create_all()
