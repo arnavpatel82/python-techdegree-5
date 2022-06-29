@@ -1,6 +1,6 @@
 # My portfolio website
  
-Welcome to my python portfolio, `a small website I built to showcase what skills I have learned through my coding journey.
+Welcome to my python portfolio, a small website I built to showcase what skills I have learned through my coding journey.
 
 Instructions:
 1. Download the project files from my github or clone the repository. 
